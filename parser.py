@@ -3,18 +3,12 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 from requests.exceptions import MissingSchema
 
-URL = 'https://hh.ru/'
-# URL = 'https://yandex.by/search/?lr=26009&text=python&src=suggest_B'
+URL = 'https://www.rbc.ru/politics/10/01/2022/61dc695e9a79475bd37805d1?from=from_main_1'
 USER = UserAgent().random
 HEADERS = {'user-agent': USER}
 
 
 def get_html(url, params=None):
-    '''
-    :param url:
-    :param params:
-    :return: Функция возвращает извлеченные данные из ресурса url
-    '''
     try:
         requests_ = requests.get(url, headers=HEADERS, params=params)
         return requests_
@@ -24,22 +18,31 @@ def get_html(url, params=None):
 
 def get_content(html):
     soup = BeautifulSoup(html, 'html.parser')
-    # return soup.head
-    return soup.h2
+    return soup.body
+
+
+def content_parsing(content):
+    print(content.find('div', class_='l-col-main').get_text('\n', strip='True'))
+    content = content.find('div', class_='l-col-main')
+    list_tags = []
+    for tag in content.find_all(True):
+        list_tags.append(tag.name)
+    print(list_tags)
+
+    return 1
 
 
 def parse():
-    '''
-    :return: Функция возвращает конечные данные
-    '''
     if get_html(URL):
         html_ = get_html(URL)
         if html_.status_code == 200:
-            print(get_content(html_.text))
+            all_content = get_content(html_.text)
+            final_data = content_parsing(all_content)
+            return final_data
         else:
             return f'Произошла ошибка, код состояния HTTP {html_.status_code}'
     else:
         pass
 
 
-print(parse())
+parse()
