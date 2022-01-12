@@ -80,7 +80,7 @@ def get_content(html, img=None):
     return new
 
 
-def parse_urls_rbk(length, file=None, img=None, ):
+def parse_urls_rbk(img=None):
     dict = {}
     n = 0
     for url in URL:
@@ -88,5 +88,6 @@ def parse_urls_rbk(length, file=None, img=None, ):
         html_ = get_html(url)
         if html_.status_code == 200:
             dict[n] = get_content(html_.text, img)
+
 
     return dict
