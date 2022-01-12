@@ -35,4 +35,3 @@ def parse_urls_rbk():
         return get_urls(html_.text)
 
 
-parse_urls_rbk()
