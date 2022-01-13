@@ -81,13 +81,12 @@ def get_content(html, img=None):
 
 
 def parse_urls_rbk(img=None):
-    dict = {}
+    dict_content = {}
     n = 0
     for url in URL:
         n += 1
         html_ = get_html(url)
         if html_.status_code == 200:
-            dict[n] = get_content(html_.text, img)
+            dict_content[n] = get_content(html_.text, img)
 
-
-    return dict
+    return dict_content

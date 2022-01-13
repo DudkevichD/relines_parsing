@@ -3,5 +3,4 @@ RUN mkdir -p /usr/srs/app/
 WORKDIR /usr/srs/app/
 COPY . /usr/srs/app/
 RUN pip install -r requirements.txt
-CMD ["python", "run_parser.py", "-l 25"]
-#!/bin/bash
+CMD ["python"]
